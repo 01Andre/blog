@@ -20,5 +20,13 @@ class BlogController extends AbstractController
         );
     }
 
-
+    /**
+     * @route("/blog/show/{slug}", name="blog_show", requirements={"slug"="[a-z0-9\-]+"})
+     */
+    public function show($slug="Article Sans Titre")
+    {
+        $slug= str_replace('-',' ', $slug);
+        $slug = ucwords($slug);
+        return $this->render('blog/show.html.twig', ['slug' => $slug]);
+    }
 }
