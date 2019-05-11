@@ -1,0 +1,14 @@
+$font-stack:    Helvetica, sans-serif;
+$primary-color: green;
+
+p {
+    font: 100% $font-stack;
+    color:  $primary-color;
+}
+
+
+h1 {
+    color: #007bff;
+}
+
+@import "~bootstrap/scss/bootstrap";
