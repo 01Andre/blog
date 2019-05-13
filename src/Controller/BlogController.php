@@ -87,8 +87,12 @@ class BlogController extends AbstractController
      *     name="blog_showcategory")
      * @return Response A response instance
      */
-    public function showByCategory(string $categoryName)
+    public function showByCategory(string $categoryName):Response
     {
+        if (!$categoryName) {
+            throw $this->createNotFoundException('this category doesn\'nt exists.');
+        }
+
         $category = $this->getDoctrine()
             ->getRepository(Category::class)
             ->findOneBy(['name' => mb_strtolower($categoryName)]);
@@ -104,6 +108,17 @@ class BlogController extends AbstractController
                 'articles' => $articles
             ]
         );
+    }
+
+    public function navbar(){
+        $categories = $this->getDoctrine()
+            ->getRepository(Category::class)
+            ->findAll();
+        return $this->render(
+            'blog/navbar.html.twig',
+            ['categories' => $categories]
+        );
+
     }
 
 }
