@@ -40,32 +40,32 @@ class BlogController extends AbstractController
     /**
      * Getting a article with a formatted slug for title
      *
-     * @param string $slug The slugger
+     * @param string $articleName The slugger
      *
-     * @Route("show/{slug<^[a-z0-9-]+$>}",
-     *     defaults={"slug" = null},
+     * @Route("show/{articleName<^[a-z0-9- ]+$>}",
+     *     defaults={"articleName" = null},
      *     name="blog_show")
      * @return Response A response instance
      */
-    public function show(string $slug): Response
+    public function show(string $articleName): Response
     {
-        if (!$slug) {
+        if (!$articleName) {
             throw $this
-                ->createNotFoundException('No slug has been sent to find an article in article\'s table.');
+                ->createNotFoundException('No article name has been sent to find an article in article\'s table.');
         }
 
-        $slug = preg_replace(
+        $articleName = preg_replace(
             '/-/',
-            ' ', ucwords(trim(strip_tags($slug)), "-")
+            ' ', ucwords(trim(strip_tags($articleName)), "-")
         );
 
         $article = $this->getDoctrine()
             ->getRepository(Article::class)
-            ->findOneBy(['title' => mb_strtolower($slug)]);
+            ->findOneBy(['title' => mb_strtolower($articleName)]);
 
         if (!$article) {
             throw $this->createNotFoundException(
-                'No article with ' . $slug . ' title, found in article\'s table.'
+                'No article with ' . $articleName . ' title, found in article\'s table.'
             );
         }
 
@@ -73,21 +73,21 @@ class BlogController extends AbstractController
             'blog/show.html.twig',
             [
                 'article' => $article,
-                'slug' => $slug,
+                'articleName' => $articleName,
             ]
         );
     }
 
     /**
-     * Getting a article with a formatted slug for title
+     * Getting a category with a formatted slug for title
      *
      *
-     * @Route("category/{categoryName<^[a-z0-9-]+$>}",
+     * @Route("category/{categoryName<^[a-z0-9-A-Z ]+$>}",
      *     defaults={"categoryName" = null},
      *     name="blog_showcategory")
      * @return Response A response instance
      */
-    public function showByCategory(string $categoryName):Response
+    public function showByCategory(string $categoryName): Response
     {
         if (!$categoryName) {
             throw $this->createNotFoundException('this category doesn\'nt exists.');
@@ -99,7 +99,7 @@ class BlogController extends AbstractController
 
         $articles = $this->getDoctrine()
             ->getRepository(Article::class)
-            ->findBy(['category' => $category],['id'=>'DESC'],3);
+            ->findBy(['category' => $category], ['id' => 'DESC'], 3);
 
         return $this->render(
             'blog/category.html.twig',
@@ -109,16 +109,4 @@ class BlogController extends AbstractController
             ]
         );
     }
-
-    public function navbar(){
-        $categories = $this->getDoctrine()
-            ->getRepository(Category::class)
-            ->findAll();
-        return $this->render(
-            'blog/navbar.html.twig',
-            ['categories' => $categories]
-        );
-
-    }
-
 }

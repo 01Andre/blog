@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/">Accueil</a>
+    <a class="navbar-brand" href="/welcome">Accueil</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -9,12 +9,33 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('homepage') }}">Index</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ path('blog_show', { 'slug': "javascript-vs-php" }) }}">Show</a>
+            <!--Dropdown categories-->
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdowncategories" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Categories
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdowncategories">
+                    {% for category in categories %}
+                    <a class="dropdown-item" href="{{ path('blog_showcategory', { 'categoryName': category.name} )  }}">{{ category.name }}</a>
+                    {% endfor %}
+
+                </div>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ path('blog_showcategory', { 'categoryName': "javascript" })  }}">Category</a>
+<!-- 2e dropdown sur les articles-->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownarticles" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Articles
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownarticles">
+                    {% for article in articles %}
+                        <a class="dropdown-item" href="{{ path('blog_show', { 'articleName': article.title} )  }}">{{ article.title }}</a>
+                    {% endfor %}
+
+                </div>
             </li>
+
+
         </ul>
 
     </div>

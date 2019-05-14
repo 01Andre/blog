@@ -4,7 +4,7 @@
 
     <div>
         <h1>Articles dans la catégorie {{ category.name }}</h1>
-
+<p> Afficher ici les 3 derniers articles de la catégorie {{ category.name }}</p>
         <ul>
             {% for article in articles %}
                 <li>{{ article.id }} : {{ article.title }}</li>
@@ -12,9 +12,5 @@
             {% endfor %}
         </ul>
     </div>
-
-    <a href="{{ path('homepage') }}">
-        Back to homepage.
-    </a>
 
 {% endblock %}
