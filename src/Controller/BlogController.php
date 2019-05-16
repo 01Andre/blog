@@ -34,7 +34,7 @@ class BlogController extends AbstractController
      *
      * @param string $articleName The slugger
      *
-     * @Route("show/{articleName<^[a-z0-9- ]+$>}",
+     * @Route("show/{articleName<^[A-Za-z0-9- ]+$>}",
      *     defaults={"articleName" = null},
      *     name="blog_show")
      * @return Response A response instance
@@ -69,7 +69,7 @@ class BlogController extends AbstractController
      * Getting a category with a formatted slug for title
      *
      *
-     * @Route("category/{categoryName<^[a-z0-9-A-Z ]+$>}",
+     * @Route("category/{categoryName<^[A-Za-z0-9- ]+$>}",
      *     defaults={"categoryName" = null},
      *     name="blog_showcategory")
      * @return Response A response instance
@@ -96,12 +96,12 @@ class BlogController extends AbstractController
             ->getRepository(Category::class)
             ->findOneByName($categoryName);
 
-        $articles = $category->getArticles();
+        $articles = $category->getArticles(['id'=>'DESC'],3);
         return $this->render(
             'blog/category.html.twig',
             [
-                'articles' => $articles,
-                'category' => $category
+                'category' => $category,
+                'articles' => $articles
             ]);
 
     }

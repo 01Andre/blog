@@ -17,6 +17,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdowncategories">
                     {% for category in categories %}
+
                     <a class="dropdown-item" href="{{ path('blog_showcategory', { 'categoryName': category.name} )  }}">{{ category.name }}</a>
                     {% endfor %}
 
