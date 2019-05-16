@@ -1,11 +1,14 @@
 <?php
 // src/Controller/BlogController.php
 namespace App\Controller;
+
 use App\Entity\Article;
 use App\Entity\Category;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+
 class BlogController extends AbstractController
 {
     /**
@@ -29,6 +32,7 @@ class BlogController extends AbstractController
             ['articles' => $articles]
         );
     }
+
     /**
      * Getting a article with a formatted slug for title
      *
@@ -65,28 +69,19 @@ class BlogController extends AbstractController
             ]
         );
     }
+
     /**
      * Getting a category with a formatted slug for title
-     *
-     *
-     * @Route("category/{categoryName<^[A-Za-z0-9- ]+$>}",
-     *     defaults={"categoryName" = null},
-     *     name="blog_showcategory")
-     * @return Response A response instance
+     * @Route("show/category/{name}", name="show_category")
+     * @ParamConverter("category", class="App\Entity\Category")
      */
-    public function showByCategory(string $categoryName): Response
+    public function showByCategory(Category $category): Response
     {
-        if (!$categoryName) {
-            throw $this->createNotFoundException('this category doesn\'nt exists.');
-        }
-        $category = $this->getDoctrine()
-            ->getRepository(Category::class)
-            ->findOneByName($categoryName);
         return $this->render(
             'blog/category.html.twig',
             [
-                'category' => $category,
-            ]);
-
+                'category' => $category
+            ]
+        );
     }
 }
