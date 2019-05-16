@@ -6,10 +6,11 @@
         <h1>Articles dans la catégorie {{ category.name }}</h1>
 <p> Afficher ici les articles de la catégorie {{ category.name }}</p>
         <ul>
-            {% for article in articles %}
+            {% for article in category.articles %}
                 <li>{{ article.id }} : {{ article.title }}</li>
                 <p>{{ article.content }}</p>
             {% endfor %}
         </ul>
     </div>
-{% endblock %}
+
+   {% endblock %}

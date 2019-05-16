@@ -78,30 +78,14 @@ class BlogController extends AbstractController
     {
         if (!$categoryName) {
             throw $this->createNotFoundException('this category doesn\'nt exists.');
-        }/*
-        $category = $this->getDoctrine()
-            ->getRepository(Category::class)
-            ->findOneBy(['name' => mb_strtolower($categoryName)]);
-        $articles = $this->getDoctrine()
-            ->getRepository(Article::class)
-            ->findBy(['category' => $category], ['id' => 'DESC'], 3);
-        return $this->render(
-            'blog/category.html.twig',
-            [
-                'category' => $category,
-                'articles' => $articles
-            ]
-        );*/
+        }
         $category = $this->getDoctrine()
             ->getRepository(Category::class)
             ->findOneByName($categoryName);
-
-        $articles = $category->getArticles(['id'=>'DESC'],3);
         return $this->render(
             'blog/category.html.twig',
             [
                 'category' => $category,
-                'articles' => $articles
             ]);
 
     }
