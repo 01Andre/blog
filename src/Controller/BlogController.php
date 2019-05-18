@@ -4,7 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Entity\Category;
+use App\Form\ArticleSearchType;
+use App\Form\CategoryType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use \Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -27,9 +30,10 @@ class BlogController extends AbstractController
                 'No article found in article\'s table.'
             );
         }
+
         return $this->render(
             'blog/index.html.twig',
-            ['articles' => $articles]
+            ['articles' => $articles,]
         );
     }
 
@@ -84,4 +88,5 @@ class BlogController extends AbstractController
             ]
         );
     }
+
 }
