@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Entity\Category;
-use App\Form\ArticleSearchType;
+use App\Entity\Tag;
 use App\Form\CategoryType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use \Symfony\Component\HttpFoundation\Request;
@@ -89,4 +89,18 @@ class BlogController extends AbstractController
         );
     }
 
+    /**
+     * Getting a category with a formatted slug for title
+     * @Route("show/tag/{name}", name="show_tag")
+     * @ParamConverter("tag", class="App\Entity\Tag")
+     */
+    public function showByTag(Tag $tag): Response
+    {
+        return $this->render(
+            'blog/tag.html.twig',
+            [
+                'tag' => $tag
+            ]
+        );
+    }
 }

@@ -7,5 +7,12 @@
         <h2>Category : {{ article.category.name }}</h2>
         <p>{{ article.content }}</p>
     </div>
-
+    <strong>Tags :</strong>
+    <ul>
+        {% for tag in article.tags %}
+            <li><a href="{{ path('show_tag', { 'name': tag.name} )  }}">{{ tag.name}}</a></li>
+        {% else %}
+            <li>No tags for this article</li>
+        {% endfor %}
+    </ul>
 {% endblock %}

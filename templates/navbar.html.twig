@@ -38,7 +38,20 @@
 
                 </div>
             </li>
+            <!--3e Dropdown Tags-->
 
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdowntags" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Tags
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdowntags">
+                    {% for tag in tags %}
+                        <a class="dropdown-item" href="{{ path('show_tag', {'name': tag.name} )  }}">{{ tag.name }}</a>
+
+                    {% endfor %}
+
+                </div>
+            </li>
 
         </ul>
 
