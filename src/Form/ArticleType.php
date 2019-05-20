@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Article;
+use App\Entity\Tag;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,9 +18,10 @@ class ArticleType extends AbstractType
             ->add('title')
             ->add('content')
             ->add('category', null, ['choice_label' => 'name'])
-            ->add('tags', null,[
-                'choice_label'    => 'name',])
-        ;
+            ->add('tags', EntityType::class, [
+                'class' => Tag::class,
+                'choice_label' => 'selector', 'expanded'=>true, 'multiple'=>true , 'by_reference' => false
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -27,4 +30,5 @@ class ArticleType extends AbstractType
             'data_class' => Article::class,
         ]);
     }
+
 }
