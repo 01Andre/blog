@@ -42,7 +42,7 @@ class BlogController extends AbstractController
      *
      * @param string $articleName The slugger
      *
-     * @Route("show/{articleName<^[A-Za-z0-9- ]+$>}",
+     * @Route("show/{articleName}",
      *     defaults={"articleName" = null},
      *     name="blog_show")
      * @return Response A response instance
