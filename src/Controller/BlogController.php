@@ -1,5 +1,5 @@
 <?php
-// src/Controller/BlogController.php
+
 namespace App\Controller;
 
 use App\Entity\Article;
@@ -76,7 +76,7 @@ class BlogController extends AbstractController
 
     /**
      * Getting a category with a formatted slug for title
-     * @Route("show/category/{name}", name="show_category")
+     * @Route("/show/category/{name}", name="show_category")
      * @ParamConverter("category", class="App\Entity\Category")
      */
     public function showByCategory(Category $category): Response
