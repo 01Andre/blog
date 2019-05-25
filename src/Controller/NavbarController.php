@@ -26,11 +26,15 @@ class NavbarController extends AbstractController
         $tags = $this->getDoctrine()
             ->getRepository(Tag::class)
             ->findAll();
+        $slugs = $this->getDoctrine()
+            ->getRepository(Tag::class)
+            ->findAll();
         return $this->render(
             'navbar.html.twig',
             ['categories' => $categories,
                 'articles' => $articles,
-                'tags'=>$tags]
+                'tags'=>$tags,
+                'slugs'=> $slugs]
         );
 
     }

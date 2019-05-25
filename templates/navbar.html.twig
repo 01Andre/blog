@@ -33,7 +33,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownarticles">
                     {% for article in articles %}
-                        <a class="dropdown-item" href="{{ path('blog_show', { 'articleName': article.title} )  }}">{{ article.title }}</a>
+                        <a class="dropdown-item" href="{{ path('blog_show', { 'articleSlug': article.slug} )  }}">{{ article.title }}</a>
                     {% endfor %}
 
                 </div>

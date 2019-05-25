@@ -42,27 +42,26 @@ class BlogController extends AbstractController
      *
      * @param string $articleName The slugger
      *
-     * @Route("show/{articleName}",
-     *     defaults={"articleName" = null},
+     * @Route("show/{articleSlug}",
      *     name="blog_show")
      * @return Response A response instance
      */
-    public function show(string $articleName): Response
+    public function show(string $articleSlug): Response
     {
-        if (!$articleName) {
+        if (!$articleSlug) {
             throw $this
                 ->createNotFoundException('No article name has been sent to find an article in article\'s table.');
         }
         $articleName = preg_replace(
             '/-/',
-            ' ', ucwords(trim(strip_tags($articleName)), "-")
+            ' ', ucwords(trim(strip_tags($articleSlug)), "-")
         );
         $article = $this->getDoctrine()
             ->getRepository(Article::class)
-            ->findOneBy(['title' => mb_strtolower($articleName)]);
+            ->findOneBy(['slug' =>$articleSlug]);
         if (!$article) {
             throw $this->createNotFoundException(
-                'No article with ' . $articleName . ' title, found in article\'s table.'
+                'No article with ' . $articleSlug . ' title, found in article\'s table.'
             );
         }
         return $this->render(
