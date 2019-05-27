@@ -7,5 +7,5 @@
     {{ article.title }} a été passé dans la catégorie {{ article.category }}.
 <br>
     Le contenu de l'article est le suivant : {{ article.content }}<br>
-    <a href="localhost:8000:{{ path('blog_show', { 'articleSlug': article.slug} )  }}">Pour voir le nouvel article : localhost:8000{{ path('blog_show', { 'articleSlug': article.slug} )  }}</a>
+    <a href="{{ url('blog_show', { 'articleSlug': article.slug} )  }}">Pour voir le nouvel article cliquez ici!</a>
 {% endblock %}
