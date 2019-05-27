@@ -1,0 +1,11 @@
+{% block body %}
+<h1>
+    On a ajouté un article sur votre blog:
+</h1>
+    <p>Ce message vous a été envoyé par {{ expeditorEmail }}</p>
+    <br>
+    {{ article.title }} a été passé dans la catégorie {{ article.category }}.
+<br>
+    Le contenu de l'article est le suivant : {{ article.content }}<br>
+    <a href="localhost:8000:{{ path('blog_show', { 'articleSlug': article.slug} )  }}">Pour voir le nouvel article : localhost:8000{{ path('blog_show', { 'articleSlug': article.slug} )  }}</a>
+{% endblock %}

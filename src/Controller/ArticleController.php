@@ -29,7 +29,7 @@ class ArticleController extends AbstractController
     /**
      * @Route("/new", name="article_new", methods={"GET","POST"})
      */
-    public function new(Request $request, Slugify $slugify): Response
+    public function new(Request $request, Slugify $slugify, \Swift_Mailer $mailer): Response
     {
         $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);
@@ -41,7 +41,18 @@ class ArticleController extends AbstractController
             $article->setSlug($slug);
             $entityManager->persist($article);
             $entityManager->flush();
-            $this->addFlash('success','Votre article a bien été créé');
+            $message = (new \Swift_Message('Un nouvel article vient d\'être publié !'))
+                ->setFrom($this->getParameter('mailer_from'))
+                ->setTo('legrandhotelorleans@gmail.com');
+            $expeditorEmail = $message->getFrom();
+            $expeditorEmail=key($expeditorEmail);
+            $message->setBody($this->render(
+                'email/Addproduct.html.twig',
+                ['expeditorEmail' => $expeditorEmail,
+                    'article' => $article]
+            ), 'text/html');
+            $mailer->send($message);
+            $this->addFlash('success', 'Votre article a bien été créé');
 
             return $this->redirectToRoute('article_index');
         }
@@ -73,7 +84,7 @@ class ArticleController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $article->setSlug($slugify->generate($article->getTitle()));
             $this->getDoctrine()->getManager()->flush();
-            $this->addFlash('success','Votre article a bien été édité');
+            $this->addFlash('success', 'Votre article a bien été édité');
 
             return $this->redirectToRoute('article_index', [
                 'id' => $article->getId(),
@@ -91,11 +102,11 @@ class ArticleController extends AbstractController
      */
     public function delete(Request $request, Article $article): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $article->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($article);
             $entityManager->flush();
-            $this->addFlash('success','Votre article a bien été supprimé');
+            $this->addFlash('success', 'Votre article a bien été supprimé');
         }
 
         return $this->redirectToRoute('article_index');
