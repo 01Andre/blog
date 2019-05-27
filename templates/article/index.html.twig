@@ -7,6 +7,7 @@
     {% for message in app.flashes('success') %}
         <div class="alert alert-success"> {{ message }}</div>
     {% endfor %}
+    <a class="btn btn-primary" href="{{ path('article_new') }}">Create new</a>
     <table class="table">
         <thead>
             <tr>
@@ -35,5 +36,5 @@
         </tbody>
     </table>
 
-    <a class="btn btn-primary" href="{{ path('article_new') }}">Create new</a>
+
 {% endblock %}
