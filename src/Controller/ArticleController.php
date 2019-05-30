@@ -39,7 +39,10 @@ class ArticleController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $slug = $slugify->generate($article->getTitle());
             $article->setSlug($slug);
+            $author = $this->getUser();
+            $article->setAuthor($author);
             $entityManager->persist($article);
+
             $entityManager->flush();
             $message = (new \Swift_Message('Un nouvel article vient d\'être publié !'))
                 ->setFrom($this->getParameter('mailer_from'))

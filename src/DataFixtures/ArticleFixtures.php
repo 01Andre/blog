@@ -20,18 +20,20 @@ class ArticleFixtures extends Fixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager)
     {
-        for ($i = 1; $i <=50; $i++) {
+        for ($i = 1; $i <= 50; $i++) {
             $faker = Faker\Factory::create('fr_FR');
             $article = new Article();
             $article->setTitle(mb_strtolower($faker->word));
             $sentence = mb_strtolower($faker->sentences($nb = 3, $asText = true));
             $article->setContent($sentence);
-            $slugify = new Slugify();
+                        $slugify = new Slugify();
             $slug = $slugify->generate($article->getTitle());
             $article->setSlug($slug);
             $manager->persist($article);
             $y = $faker->numberBetween($min = 0, $max = 4);
             $article->setCategory($this->getReference('categorie_' . $y));
+            $tagNumber = $faker->numberBetween($min = 0, $max = 3);
+            $article->addTag($this->getReference('tag_' . $tagNumber));
             $manager->flush();
         }
 
