@@ -30,7 +30,7 @@ class ArticleController extends AbstractController
      * @Route("/new", name="article_new", methods={"GET","POST"})
      */
     public function new(Request $request, Slugify $slugify, \Swift_Mailer $mailer): Response
-    {
+    {$this->denyAccessUnlessGranted('ROLE_AUTHOR');
         $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
@@ -49,7 +49,7 @@ class ArticleController extends AbstractController
                 ->setTo('legrandhotelorleans@gmail.com');
             $expeditorEmail = $message->getFrom();
             $expeditorEmail=key($expeditorEmail);
-            $message->setBody($this->render(
+            $message->setBody($this->renderView(
                 'email/Addproduct.html.twig',
                 ['expeditorEmail' => $expeditorEmail,
                     'article' => $article]
