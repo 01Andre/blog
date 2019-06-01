@@ -40,6 +40,7 @@ class UserFixtures extends Fixture
             $admin,
             'adminpassword'
         ));
+        $this->setReference('author@monsite.com',$author);
 
         $manager->persist($admin);
 

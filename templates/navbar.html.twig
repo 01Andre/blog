@@ -6,12 +6,18 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
+            {% if is_granted('ROLE_ADMIN') %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('add_category') }}">Ajouter une catégorie</a>
+                </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ path('article_index') }}">Articles</a>
+                <a class="nav-link" href="{{ path('article_index') }}">Admin Articles</a>
             </li>
+            {% endif %}
             <li class="nav-item">
-                <a class="nav-link" href="{{ path('add_category') }}">Ajouter une catégorie</a>
+                <a class="nav-link" href="{{ path('blog_index') }}">Articles</a>
             </li>
+
             <!--Dropdown categories-->
 
             <li class="nav-item dropdown">

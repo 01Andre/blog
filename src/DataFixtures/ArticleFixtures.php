@@ -34,6 +34,7 @@ class ArticleFixtures extends Fixture implements DependentFixtureInterface
             $article->setCategory($this->getReference('categorie_' . $y));
             $tagNumber = $faker->numberBetween($min = 0, $max = 3);
             $article->addTag($this->getReference('tag_' . $tagNumber));
+            $article->setAuthor($this->getReference('author@monsite.com'));
             $manager->flush();
         }
 

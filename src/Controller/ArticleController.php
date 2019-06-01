@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
+ *
  * @Route("/article")
  */
 class ArticleController extends AbstractController
@@ -30,7 +31,8 @@ class ArticleController extends AbstractController
      * @Route("/new", name="article_new", methods={"GET","POST"})
      */
     public function new(Request $request, Slugify $slugify, \Swift_Mailer $mailer): Response
-    {$this->denyAccessUnlessGranted('ROLE_AUTHOR');
+    {
+        $this->denyAccessUnlessGranted('ROLE_AUTHOR');
         $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
@@ -48,7 +50,7 @@ class ArticleController extends AbstractController
                 ->setFrom($this->getParameter('mailer_from'))
                 ->setTo('legrandhotelorleans@gmail.com');
             $expeditorEmail = $message->getFrom();
-            $expeditorEmail=key($expeditorEmail);
+            $expeditorEmail = key($expeditorEmail);
             $message->setBody($this->renderView(
                 'email/Addproduct.html.twig',
                 ['expeditorEmail' => $expeditorEmail,
@@ -81,7 +83,15 @@ class ArticleController extends AbstractController
      */
     public function edit(Request $request, Article $article, Slugify $slugify): Response
     {
-        $form = $this->createForm(ArticleType::class, $article);
+        $user = $this->getUser();
+        $author = $article->getAuthor();
+        if ($user != $author && !$this->isGranted('ROLE_ADMIN')) {
+            $this->addFlash('failure', 'Vous ne pouvez pas modifier un article que vous n\'avez pas écrit à moins d\'être admin !');
+            return $this->redirectToRoute('article_index', [
+                'id' => $article->getId(),
+            ]);
+        }
+            $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

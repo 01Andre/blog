@@ -7,6 +7,9 @@
     {% for message in app.flashes('success') %}
         <div class="alert alert-success"> {{ message }}</div>
     {% endfor %}
+    {% for message in app.flashes('failure') %}
+        <div class="alert alert-danger"> {{ message }}</div>
+    {% endfor %}
     <a class="btn btn-primary" href="{{ path('article_new') }}">Create new</a>
     <table class="table">
         <thead>
