@@ -6,12 +6,19 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
+ * @UniqueEntity(
+ *     fields={"title"},
+ *     errorPath="title",
+ *     message="Ce titre existe déjà !")
  * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
  */
 class Article
 {
+
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -20,19 +27,23 @@ class Article
     private $id;
 
     /**
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="Ce champ ne peut pas être vide!")
+     * @Assert\Length(max=255, maxMessage="Le titre saisi: {{ value }} est trop long, il ne devrait pas dépasser {{ limit }} caractères")
      * @ORM\Column(type="string", length=255)
      */
     private $title;
 
     /**
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="Ce champ ne peut pas être vide!")
+     * @Assert\Regex(
+     *     pattern="/(?i)digital/",
+     *     match=false,
+     *     message="en français, il faut dire numérique")
      * @ORM\Column(type="text")
      */
     private $content;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="App\Entity\Category",inversedBy="articles")
      * @ORM\JoinColumn(nullable=false)
      */

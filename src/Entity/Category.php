@@ -28,6 +28,7 @@ class Category
     private $id;
 
     /**
+     * @Assert\Length(max="100")
      * @ORM\Column(type="string", length=100)
      */
     private $name;

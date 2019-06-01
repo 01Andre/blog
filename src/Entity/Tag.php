@@ -20,6 +20,8 @@ class Tag
     private $id;
 
     /**
+     * @Assert\Length(max="255")
+     * @Assert\NotBlank(message="Ce champ ne peut pas être vide!")
      * @ORM\Column(type="string", length=255)
      */
     private $name;
