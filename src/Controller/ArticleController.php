@@ -48,7 +48,7 @@ class ArticleController extends AbstractController
             $entityManager->flush();
             $message = (new \Swift_Message('Un nouvel article vient d\'être publié !'))
                 ->setFrom($this->getParameter('mailer_from'))
-                ->setTo('legrandhotelorleans@gmail.com');
+                ->setTo($this->getParameter('mailer_from'));
             $expeditorEmail = $message->getFrom();
             $expeditorEmail = key($expeditorEmail);
             $message->setBody($this->renderView(
