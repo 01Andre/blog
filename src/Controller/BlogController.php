@@ -77,21 +77,6 @@ class BlogController extends AbstractController
 
     /**
      * Getting a category with a formatted slug for title
-     * @Route("/show/category/{id}", name="show_category")
-     * @ParamConverter("category", class="App\Entity\Category")
-     */
-    public function showByCategory(Category $category): Response
-    {
-        return $this->render(
-            'blog/category.html.twig',
-            [
-                'category' => $category
-            ]
-        );
-    }
-
-    /**
-     * Getting a category with a formatted slug for title
      * @Route("show/tag/{name}", name="show_tag")
      * @ParamConverter("tag", class="App\Entity\Tag")
      */

@@ -3,7 +3,10 @@
 {% block body %}
 <h1>"Bienvenue sur mon blog" </h1>
 Notez la navbar dynamique, reliée à la BDD au passage 8-)
-    <p>C'est un peu triste quand c'est vide. Mais à mon avis, ce sera pire après, si c'est moi qui le remplis :D</p>
+    <p>N.B les critères de la quête 19 sont réunis ici (voir catégorie articles en n'étant pas identifié)
+        si vous vous rendez sur articles admin : il faut être identifié, et pour vérifier votre identification, il faut une requête doctrine. Donc 2 requêtes seront notées dans la barre de debug.
+        NB 2 . j'ai désactivé ma navbar pour cette quête, car elle faisait des requêtes vers la BDD, et avec le lazy load, pas besoin de re-requêter, ce qui fait que le nombre de requêtes est demeuré à 3 (select all articles, select all tags, select all categories), même avant que je ne change ma requête.)</p>
+
 
 
 {% endblock %}

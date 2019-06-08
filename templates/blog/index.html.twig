@@ -6,8 +6,8 @@
 {% block body %}
     <h1>Tous les articles : </h1>
 
-    <h4>N.B les critères de la quête sont réunis ici. <br>
-        si vous vous rendez sur article/index : il faut être identifié, et pour vérifier votre identification, il faut une requête doctrine.
+    <h4>N.B les critères de la quête 19 sont réunis ici, en cliquant sur articles lorsque l'on n'est pas identifié. <br>
+        si vous vous rendez sur admin articles : il faut être identifié, et pour vérifier votre identification, il faut une requête doctrine.
     Donc 2 requêtes seront notées dans la barre de debug.<br>
 
     NB 2 . j'ai désactivé ma navbar pour cette quête, car elle faisait des requêtes vers la BDD, et avec le lazy load, pas besoin de re-requêter, ce qui fait que le nombre de requêtes est demeuré à 3 (select all articles, select all tags, select all categories), même avant que je ne change ma requête.)</h4>

@@ -134,7 +134,7 @@ class ArticleController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($article);
             $entityManager->flush();
-            $this->addFlash('success', 'Votre article a bien été supprimé');
+            $this->addFlash('danger', 'Votre article a bien été supprimé');
         }
 
         return $this->redirectToRoute('article_index');
