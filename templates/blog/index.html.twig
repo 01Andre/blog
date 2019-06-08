@@ -4,14 +4,25 @@
 {% block title %}All articles{% endblock %}
 
 {% block body %}
-    <h1>All articles from article s table : </h1>
+    <h1>Tous les articles : </h1>
+
+    <h4>N.B les critères de la quête sont réunis ici. <br>
+        si vous vous rendez sur article/index : il faut être identifié, et pour vérifier votre identification, il faut une requête doctrine.
+    Donc 2 requêtes seront notées dans la barre de debug.<br>
+
+    NB 2 . j'ai désactivé ma navbar pour cette quête, car elle faisait des requêtes vers la BDD, et avec le lazy load, pas besoin de re-requêter, ce qui fait que le nombre de requêtes est demeuré à 3 (select all articles, select all tags, select all categories), même avant que je ne change ma requête.)</h4>
     {% for article in articles %}
         <div>
-            <h2>{{ loop.index }} / {{ article.title }} - Category : {{ article.category.name }}</h2>
+            <h2>{{ loop.index }} : {{ article.title }} - Category : {{ article.category.name }}</h2>
+           <h3>Contenu</h3>
             <p>{{ article.content }}</p>
+            <h3>Tags:</h3>
+            {% for tag in article.tags %}
+                <p>{{ tag.name }}</p>
+                {% endfor %}
         </div>
     {% else %}
-        Aucun tag trouvé.
+        Aucun article trouvé.
     {% endfor %}
 
 {% endblock %}

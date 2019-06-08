@@ -10,9 +10,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('add_category') }}">Ajouter une catégorie</a>
                 </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ path('article_index') }}">Admin Articles</a>
-            </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('article_index') }}">Admin Articles</a>
+                </li>
             {% endif %}
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('blog_index') }}">Articles</a>
@@ -26,13 +26,13 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdowncategories">
                     {% for category in categories %}
-                    <a class="dropdown-item" href="{{ path('show_category', {'name': category.name} )  }}">{{ category.name }}</a>
+                        <a class="dropdown-item" href="{{ path('show_category', {'id': category.id} )  }}">{{ category.name }}</a>
 
                     {% endfor %}
 
                 </div>
             </li>
-<!-- 2e dropdown sur les articles-->
+            <!-- 2e dropdown sur les articles-->
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownarticles" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Articles
@@ -71,5 +71,3 @@
         <a href="{{ path('app_login') }}"> Se connecter</a>
     {% endif %}
 </nav>
-
-

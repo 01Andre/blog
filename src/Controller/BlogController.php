@@ -25,7 +25,8 @@ class BlogController extends AbstractController
     {
         $articles = $this->getDoctrine()
             ->getRepository(Article::class)
-            ->findAll();
+            ->findAllWithCategoriesAndTags();
+//dd($articles);
         if (!$articles) {
             throw $this->createNotFoundException(
                 'No article found in article\'s table.'
@@ -76,7 +77,7 @@ class BlogController extends AbstractController
 
     /**
      * Getting a category with a formatted slug for title
-     * @Route("/show/category/{name}", name="show_category")
+     * @Route("/show/category/{id}", name="show_category")
      * @ParamConverter("category", class="App\Entity\Category")
      */
     public function showByCategory(Category $category): Response

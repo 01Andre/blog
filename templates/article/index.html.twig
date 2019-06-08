@@ -27,6 +27,11 @@
                 <td>{{ article.title }}</td>
                 <td>{{ article.content }}</td>
                 <td>
+                {% for tag in article.tags %}
+                <p>{{ tag.name }}</p>
+                {% endfor %}
+                </td>
+                <td>
 {#                    <a class="btn btn-success" href="{{ path('article_show', {'id': article.id}) }}">show</a>#}
                     <a class="btn btn-dark" href="{{ path('article_edit', {'id': article.id}) }}">edit</a>
                 </td>
