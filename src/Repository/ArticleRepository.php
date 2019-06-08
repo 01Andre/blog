@@ -22,8 +22,8 @@ class ArticleRepository extends ServiceEntityRepository
     public function findAllWithCategoriesAndTags()
     {
         $qb = $this->createQueryBuilder('a')
-            ->innerJoin('a.category', 'c' )
-            ->innerJoin('a.tags','t')
+            ->LeftJoin('a.category', 'c')
+            ->LeftJoin('a.tags','t')
             ->addSelect('c','t')
             ->getQuery();
 
