@@ -19,7 +19,7 @@
         {% for article in articles %}
             <tr>
                 <td>{{ article.id }}</td>
-                <td>{{ article.title }}</td>
+                <td><a href="{{ path('article_show', {'id': article.id}) }}">{{ article.title }}</a></td>
                 <td>{{ article.content }}</td>
                 <td>
                 {% for tag in article.tags %}
@@ -38,6 +38,7 @@
         {% endfor %}
         </tbody>
     </table>
+
 
 
 {% endblock %}
